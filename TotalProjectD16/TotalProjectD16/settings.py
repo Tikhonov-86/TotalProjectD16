@@ -142,3 +142,21 @@ LOGOUT_REDIRECT_URL = "/"
 
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+
+ACCOUNT_LOGIN_URL = 'yourapp:account_login'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = ACCOUNT_LOGIN_URL
+ACCOUNT_PASSWORD_RESET_REDIRECT_URL = ACCOUNT_LOGIN_URL
+ACCOUNT_EMAIL_CONFIRMATION_URL = 'yourapp:account_confirm_email'
+ACCOUNT_EMAIL_RESET_REDIRECT_URL = 'yourapp:account_settings'
+ACCOUNT_PASSWORD_CHANGE_REDIRECT_URL = 'yourapp:account_password'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "SkillFactory-Test"
+EMAIL_HOST_PASSWORD = "ymeiehqwyewjoalq"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = "skillfactorytest@yandex.ru"
