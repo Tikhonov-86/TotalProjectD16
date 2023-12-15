@@ -145,11 +145,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-STATIC_ROOT = 'static/'
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = 'media/'
-MEDIA_URL = '/media/'
+# STATIC_ROOT = 'static/'
+# STATIC_URL = '/static/'
+#
+# MEDIA_ROOT = 'media/'
+# MEDIA_URL = '/media/'
 
 
 # Default primary key field type
@@ -181,7 +181,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
