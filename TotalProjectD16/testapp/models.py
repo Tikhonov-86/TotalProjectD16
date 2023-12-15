@@ -57,12 +57,12 @@ class Comment(models.Model):
 
 class Subscription(models.Model):
     user = models.ForeignKey(
-        to=User,
+        to=UserResponse,
         on_delete=models.CASCADE,
         related_name='subscriptions',
     )
-    category = models.ForeignKey(
-        to='Category',
+    article = models.ForeignKey(
+        to='Article',
         on_delete=models.CASCADE,
         related_name='subscriptions',
     )
