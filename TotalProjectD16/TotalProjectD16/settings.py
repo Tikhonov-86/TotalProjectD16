@@ -158,7 +158,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'TotalProjectD16/static'),
 ]
 
 
@@ -190,8 +190,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = "SkillFactory-Test"
-EMAIL_HOST_PASSWORD = "ymeiehqwyewjoalq"
+EMAIL_HOST_PASSWORD = "79a6fb6ee5ba4f34a1a63f5e6970cb94"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
 DEFAULT_FROM_EMAIL = "skillfactorytest@yandex.ru"
+# 8d59a1e9901b4eaea2b8753cdf32968d
