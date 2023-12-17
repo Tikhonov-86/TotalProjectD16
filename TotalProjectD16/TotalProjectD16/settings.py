@@ -41,14 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    'testapp',
-    'accounts',
+    'ckeditor',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
 
+    'testapp',
+    'accounts',
 ]
 
 SITE_ID = 1
@@ -146,6 +147,7 @@ USE_TZ = True
 
 
 STATIC_ROOT = 'static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'TotalProjectD16/static'),
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = 'media/'
@@ -157,9 +159,9 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'TotalProjectD16/static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'TotalProjectD16/static'),
+# ]
 
 
 LOGIN_REDIRECT_URL = "/"
