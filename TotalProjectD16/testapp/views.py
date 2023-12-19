@@ -1,14 +1,15 @@
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
+from django.views.generic import ListView, DetailView
+
+from testapp.models import Article
 
 
-@permission_required('polls_and_choise', raise_exception=True)
-@login_required
-def my_view(request):
-    return HttpResponse(content={'count': count_var})
+class ArticleList(ListView):
+    model = Article
+    template_name = 'article_list.html'
+    context_object_name = 'articles'
 
 
-class MyView(LoginRequiredMixin, View):
-    login_url = '/login/'
+class ArticleDetail(DetailView):
+    model = Article
+    template_name = 'article_detail.html'
+    context_object_name = 'article'

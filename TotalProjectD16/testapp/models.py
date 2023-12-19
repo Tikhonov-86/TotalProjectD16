@@ -15,8 +15,8 @@ class Article(models.Model):
         ('potion', 'Зельевары'),
         ('spellmaster', 'Мастера заклинаний'),
     )
-    author = models.OneToOneField(User, on_delete=models.CASCADE),
-    title = models.CharField(max_length=64),
+    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=64)
     text = models.TextField()
     category = models.CharField(max_length=16, choices=TYPE, default='tank')
     dateCreation = models.DateTimeField(auto_now_add=True)
@@ -33,8 +33,8 @@ class Article(models.Model):
 
 
 class UserResponse(models.Model):
-    author = models.OneToOneField(User, on_delete=models.CASCADE),
-    title = models.CharField(max_length=64),
+    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=64)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
 
@@ -66,3 +66,7 @@ class Subscription(models.Model):
         on_delete=models.CASCADE,
         related_name='subscriptions',
     )
+
+
+# class Account(models.Model):
+#     pass

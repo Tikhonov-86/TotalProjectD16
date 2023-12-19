@@ -1,0 +1,45 @@
+{% extends 'default.html' %}
+
+{% block title %}
+{{ article.title }}
+{% endblock title %}
+
+
+{% block content %}
+    <h1>{{ Article.title|censor }}</h1>
+    <hr>
+    <h3>Общее количество новостей: {{ articles|length }}</h3>
+    <h3>{% current_time '%d %b %Y' %}</h3>
+    <hr>
+
+    {% if articles %}
+        <table>
+            <tr>
+                <td>Заголовок</td>
+                <td>Превью статьи</td>
+                <td>Дата создания</td>
+                <td>Тип публикации</td>
+            </tr>
+
+            {% for article in articles %}
+            <tr>
+                <td>{{ article.title }}</td>
+                <td>{{ article.text|truncatechars:20 }}</td>
+                <td>{{ article.dateCreation|date:'d M Y'}}</td>
+                <td>{{ article.get_category_display }}</td>
+
+                <td>
+                    {% if Article.author == request.user.author %}
+                    <a href="{% url 'article_update' pk=Article.id %}">Изменить</a>
+                    {% endif %}
+                    {% if perms.testapp.delete_news %}
+                    <a href="{% url 'article_delete' Article.id %}">Удалить</a>
+                    {% endif %}
+                </td>
+
+            </tr>
+        </table>
+    {% else %}
+        <h2> На данный момент времени ни один пост не добавлен... </h2>
+    {% endif %}
+{% endblock content %}
