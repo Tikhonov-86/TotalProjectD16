@@ -23,6 +23,10 @@
 
             {% for article in articles %}
             <tr>
+                {% if article.upload %}
+                <td><img scr="{{ article.upload.url }}" alt=""></td>
+                {% endif %}
+
                 <td>{{ article.title }}</td>
                 <td>{{ article.text|truncatechars:20 }}</td>
                 <td>{{ article.dateCreation|date:'d M Y'}}</td>
