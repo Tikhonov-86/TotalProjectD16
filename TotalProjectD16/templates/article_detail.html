@@ -6,9 +6,8 @@
 
 
 {% block content %}
-    <h1>{{ Article.title|censor }}</h1>
+    <h1>Новости {{ article.id }}</h1>
     <hr>
-    <h3>Общее количество новостей: {{ articles|length }}</h3>
     <h3>{% current_time '%d %b %Y' %}</h3>
     <hr>
 
@@ -21,6 +20,10 @@
                 <td>Тип публикации</td>
             </tr>
             <tr>
+                {% if article.upload %}
+                <td><img scr="{{ article.upload.url }}" width="200" height="200"></td>
+                {% endif %}
+
                 <td>{{ article.title }}</td>
                 <td>{{ article.text|truncatechars:20 }}</td>
                 <td>{{ article.dateCreation|date:'d M Y'}}</td>

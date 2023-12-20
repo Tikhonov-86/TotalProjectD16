@@ -24,7 +24,7 @@
             {% for article in articles %}
             <tr>
                 {% if article.upload %}
-                <td><img scr="{{ article.upload.url }}" alt=""></td>
+                <td><img scr="{{ article.upload.url }}" width="200" height="200"></td>
                 {% endif %}
 
                 <td>{{ article.title }}</td>
