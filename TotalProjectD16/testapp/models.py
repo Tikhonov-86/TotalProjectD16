@@ -68,5 +68,3 @@ class Subscription(models.Model):
     )
 
 
-# class Account(models.Model):
-#     pass
