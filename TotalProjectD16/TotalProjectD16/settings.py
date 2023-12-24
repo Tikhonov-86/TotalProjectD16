@@ -30,8 +30,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.flatpages',
 
     'ckeditor',
 
@@ -65,8 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 
-    'account.middleware.LocaleMiddleware',
-    'account.middleware.TimezoneMiddleware',
+    'middleware.TimezoneMiddleware',
     'allauth.account.middleware.AccountMiddleware'
 ]
 

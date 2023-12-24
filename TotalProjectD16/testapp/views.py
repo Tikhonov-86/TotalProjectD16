@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView
 
-
-from TotalProjectD16.testapp.models import Article, Subscription
+from .models import Article, Subscription
 
 
 class ArticleList(ListView):
