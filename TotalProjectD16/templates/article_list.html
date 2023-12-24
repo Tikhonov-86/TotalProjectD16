@@ -4,6 +4,8 @@
 {{ article.title }}
 {% endblock title %}
 
+{% load censor_filter %}
+{% load custom_tags %}
 
 {% block content %}
     <h1>{{ Article.title|censor }}</h1>
@@ -43,6 +45,7 @@
 
             </tr>
         </table>
+    {% endfor %}
     {% else %}
         <h2> На данный момент времени ни один пост не добавлен... </h2>
     {% endif %}
