@@ -88,7 +88,6 @@ TEMPLATES = [
 ]
 
 
-# Этого раздела может не быть, добавьте его в указанном виде.
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -144,8 +143,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-STATIC_ROOT = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'TotalProjectD16/static'),
+# STATIC_ROOT = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'TotalProjectD16/static'),
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = 'media/'
