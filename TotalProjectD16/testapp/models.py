@@ -29,7 +29,7 @@ class Article(models.Model):
         return f'{self.dateCreation}||{self.title}:{self.text[:20]}'
 
     def get_absolut_url(self):
-        return f'/article/{self.id}'
+        return f'/forum/{self.id}'
 
 
 class UserResponse(models.Model):
