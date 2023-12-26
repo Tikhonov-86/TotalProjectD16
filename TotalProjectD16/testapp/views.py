@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import OuterRef, Exists
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -15,13 +16,15 @@ class ArticleList(ListView):
     paginate_by = 5
 
 
-class ArticleDetail(DetailView):
+class ArticleDetail(PermissionRequiredMixin, DetailView):
+    permission_required = ('testapp.add_article',)
     model = Article
     template_name = 'article_detail.html'
     context_object_name = 'article'
 
 
-class ArticleUpdate(UpdateView):
+class ArticleUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('testapp.update_article',)
     model = Article
     template_name = 'article_update.html'
 
@@ -30,7 +33,8 @@ class ArticleUpdate(UpdateView):
         return super().form_valid(form)
 
 
-class ArticleDelete(DeleteView):
+class ArticleDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('testapp.delete_article',)
     model = Article
     template_name = 'article_delete.html'
     success_url = reverse_lazy('article')

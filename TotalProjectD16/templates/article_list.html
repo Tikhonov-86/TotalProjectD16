@@ -1,4 +1,5 @@
 {% extends 'flatpages/default.html' %}
+{% load static %}
 
 {% block title %}
 {{ article.title }}
@@ -14,6 +15,10 @@
     <h3>{% current_time '%d %b %Y' %}</h3>
     <hr>
 
+    {% if perms.testapp.add_article %}
+    <a href="{% url 'article_create' %}">Добавить объявление</a>
+    {% endif %}
+
     {% if articles %}
         <table>
             <tr>
@@ -21,6 +26,10 @@
                 <td>Превью статьи</td>
                 <td>Дата создания</td>
                 <td>Тип публикации</td>
+
+                {% if perms.testapp.change_article or perms.testapp.delete_article %}
+                    <td>Действия</td>
+                {% endif %}
             </tr>
 
             {% for article in articles %}
@@ -49,5 +58,23 @@
     {% else %}
         <h2> На данный момент времени ни один пост не добавлен... </h2>
         <h3> Самое время опубликовать объявление в ленте ;) </h3>
+    {% endif %}
+
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+            ...
+            <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+    {% endif %}
+
+    {{ page_obj.number }}
+
+    {% if page_obj.has_next %}
+        <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+        {% if paginator.num_pages != page_obj.next_page_number %}
+            ...
+            <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+        {% endif %}
     {% endif %}
 {% endblock content %}
