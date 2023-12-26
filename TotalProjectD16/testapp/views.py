@@ -1,4 +1,6 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import OuterRef, Exists
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView
 
@@ -33,7 +35,7 @@ def subscriptions(request):
                 category=category,
             ).delete()
 
-    categories_with_subscriptions = Category.objects.annotate(
+    categories_with_subscriptions = Article.objects.annotate(
         user_subscribed=Exists(
             Subscription.objects.filter(
                 user=request.user,
