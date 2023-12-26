@@ -4,6 +4,8 @@
 {{ article.title }}
 {% endblock title %}
 
+{% load censor_filter %}
+{% load custom_tags %}
 
 {% block content %}
     <h1>Новости {{ article.id }}</h1>
