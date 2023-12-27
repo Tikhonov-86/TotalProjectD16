@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
+from .forms import ArticleForm
 from .models import Article, Subscription
-# from .forms import ArticleForm
 
 
 class ArticleList(ListView):
@@ -27,13 +27,14 @@ class ArticleDetail(PermissionRequiredMixin, DetailView):
 class ArticleUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = ('testapp.update_article',)
     raise_exception = True
-    # form_class = ArticleForm
+    form_class = ArticleForm
     model = Article
     template_name = 'article_update.html'
+    success_url = reverse_lazy('article_list')
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user.author
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     form.instance.author = self.request.user.author
+    #     return super().form_valid(form)
 
 
 class ArticleDelete(PermissionRequiredMixin, DeleteView):

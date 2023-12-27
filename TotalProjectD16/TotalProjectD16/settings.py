@@ -142,7 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-STATIC_ROOT = 'static/'
+# STATIC_ROOT = 'static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'TotalProjectD16/static'),
 STATIC_URL = '/static/'
 
@@ -156,12 +156,12 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'TotalProjectD16/static'),
+    os.path.join(BASE_DIR, 'static/'),
 ]
 
 
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/article"
+LOGOUT_REDIRECT_URL = "/article"
 
 
 ACCOUNT_EMAIL_UNIQUE = True

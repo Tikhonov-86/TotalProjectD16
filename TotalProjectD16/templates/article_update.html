@@ -1,4 +1,4 @@
-{% extends 'flatpages/default.html' %}
+{% extends 'default.html' %}
 {% load static %}
 
 {% load censor_filter %}
@@ -8,12 +8,12 @@
 {% endblock title %}
 
 {% block content %}
-<h1> Редактирование статьи </h1>
+<h2> Редактирование объявления </h2>
 <hr>
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
 
-    <button type="submit">Редактировать статью</button>
+    <button type="submit">Подтвердить/Отменить</button>
 </form>
 {% endblock content %}
