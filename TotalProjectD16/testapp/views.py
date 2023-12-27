@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
 from .models import Article, Subscription
+# from .forms import ArticleForm
 
 
 class ArticleList(ListView):
@@ -25,6 +26,8 @@ class ArticleDetail(PermissionRequiredMixin, DetailView):
 
 class ArticleUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = ('testapp.update_article',)
+    raise_exception = True
+    # form_class = ArticleForm
     model = Article
     template_name = 'article_update.html'
 

@@ -155,9 +155,9 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'TotalProjectD16/static'),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'TotalProjectD16/static'),
+]
 
 
 LOGIN_REDIRECT_URL = "/"
@@ -187,3 +187,5 @@ EMAIL_USE_SSL = True
 
 DEFAULT_FROM_EMAIL = "skillfactorytest@yandex.ru"
 # 8d59a1e9901b4eaea2b8753cdf32968d
+
+EMAIL_SUBJECT_PREFIX = None

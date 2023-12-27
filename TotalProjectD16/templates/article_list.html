@@ -45,7 +45,7 @@
 
                 <td>
                     {% if Article.author == request.user.author %}
-                    <a href="{% url 'article_update' pk=Article.id %}">Изменить</a>
+                    <a href="{% url 'article_update' Article.id %}">Изменить</a>
                     {% endif %}
                     {% if perms.testapp.delete_news %}
                     <a href="{% url 'article_delete' Article.id %}">Удалить</a>
