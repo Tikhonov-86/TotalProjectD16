@@ -9,9 +9,9 @@
 {% load custom_tags %}
 
 {% block content %}
-    <h1>Новость №{{ article.id }}</h1>
+    <h3><b>Новость №{{ article.id }}</b></h3>
     <hr>
-    <h3>{% current_time '%d %b %Y' %}</h3>
+    <h4>{% current_time '%d %b %Y' %}</h4>
     <hr>
 
     {% if articles %}
@@ -44,7 +44,10 @@
             </tr>
         </table>
     {% else %}
-        <h2> На данный момент времени ни один пост не добавлен... </h2>
-        <h3> Опубликуйте свою статью ;) </h3>
+        <h5> На данный момент времени ни один пост не добавлен... </h5>
+        <h6> Опубликуйте свою статью ;) </h6>
+    {% endif %}
+    {% if perms.testapp.add_article %}
+        <br><br><button href="{% url 'article_create' %}">Добавить объявление</button>
     {% endif %}
 {% endblock content %}
