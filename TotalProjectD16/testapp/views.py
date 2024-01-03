@@ -1,22 +1,44 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.db.models import OuterRef, Exists
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
+from django_filters import FilterSet
 
 from .forms import ArticleForm
-from .models import Article, Subscription
+from .models import Article, Subscription, Comment
+
+
+class ArticleFilter(FilterSet):
+
+    class Meta:
+        model = Comment
+        fields = ['commentPost']
+
+    def __init__(self, *args, **kwargs):
+        super(ArticleFilter, self).__init__(*args, **kwargs)
+        self.filters['commentPost'].queryset = Article.objects.filter(author__user_id=kwargs['request'])
+
+
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = 'main.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = Comment.objects.filter(commentPost__author__user_id=self.request.user.id)
+        context['filterset'] = ArticleFilter(self.request.GET, queryset, request=self.request.user.id)
+        return context
 
 
 class ArticleList(ListView):
     model = Article
-    ordering = '-dateCreation'
+    # ordering = '-dateCreation'
     template_name = 'article_list.html'
     context_object_name = 'articles'
-    paginate_by = 5
+    paginate_by = 10
 
 
 class ArticleDetail(PermissionRequiredMixin, DetailView):
@@ -40,7 +62,7 @@ def create_news(request):
 
 
 class ArticleCreate(PermissionRequiredMixin, CreateView):
-    permission_required = ('testapp.add_article',)
+    permission_required = ('testapp.create_article',)
     raise_exception = True
     form_class = ArticleForm
     model = Article

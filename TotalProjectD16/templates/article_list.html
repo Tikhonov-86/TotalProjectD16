@@ -9,8 +9,6 @@
 {% load custom_tags %}
 
 {% block content %}
-    <h1>{{ Article.title|censor }}</h1>
-    <hr>
     <h3>Общее количество новостей: {{ articles|length }}</h3>
     <h3>{% current_time '%d %b %Y' %}</h3>
     <hr>
@@ -38,17 +36,17 @@
                 <td><img scr="{{ article.upload.url }}" width="200" height="200"></td>
                 {% endif %}
 
-                <td>{{ article.title }}</td>
+                <td>{{ article.title|censor }}</td>
                 <td>{{ article.text|truncatechars:20 }}</td>
                 <td>{{ article.dateCreation|date:'d M Y'}}</td>
                 <td>{{ article.get_category_display }}</td>
 
                 <td>
-                    {% if Article.author == request.user.author %}
-                    <a href="{% url 'article_update' Article.id %}">Изменить</a>
+                    {% if article.author == request.user.author %}
+                    <a href="{% url 'article_update' article.id %}">Изменить</a>
                     {% endif %}
                     {% if perms.testapp.delete_news %}
-                    <a href="{% url 'article_delete' Article.id %}">Удалить</a>
+                    <a href="{% url 'article_delete' article.id %}">Удалить</a>
                     {% endif %}
                 </td>
 

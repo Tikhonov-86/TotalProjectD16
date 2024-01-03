@@ -1,0 +1,15 @@
+{% extends 'default.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Личный кабинет {{ request.user.username }}</h2>
+<div>Здесь может содержаться персональная информация каждого пользователя</div>
+<hr>
+<form action="" method="get">
+    {{ filterset.form }}
+    <input type="submit", value="Найти">
+</form>
+<hr>
+
+<button> <a href="{% url 'account_logout' %}">Выйти</a> </button>
+{% endblock content %}
