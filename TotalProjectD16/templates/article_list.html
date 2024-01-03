@@ -14,7 +14,7 @@
     <hr>
 <br>
     {% if perms.testapp.add_article %}
-    <a href="{% url 'article_create' %}"><p>Добавить объявление</p></a>
+        <a href="{% url 'article_create' %}"><p>Добавить объявление</p></a>
     {% endif %}
 <br>
 
@@ -26,9 +26,10 @@
                 <td><b>Превью статьи</b></td>
                 <td><b>Дата создания</b></td>
                 <td><b>Тип публикации</b></td>
+                <td><b>Автор</b></td>
 
-                {% if perms.testapp.change_article or perms.testapp.delete_article %}
-                <td><b>Действия</b></td>
+                {% if perms.testapp.update_article or perms.testapp.delete_article %}
+                    <td><b>Действия</b></td>
                 {% endif %}
             </tr>
 
@@ -47,11 +48,11 @@
                 <td>{{ article.author }}</td>
 
                 <td>
-                    {% if article.author == request.user.author %}
-                    <a href="{% url 'article_update' article.id %}">Изменить</a>
+                    {% if Article.author == request.user.author %}
+                        <a href="{% url 'article_update' article.id %}">Изменить</a>
                     {% endif %}
-                    {% if perms.testapp.delete_news %}
-                    <a href="{% url 'article_delete' article.id %}">Удалить</a>
+                    {% if perms.testapp.delete_article %}
+                        <a href="{% url 'article_delete' article.id %}">Удалить</a>
                     {% endif %}
                 </td>
             </tr>
@@ -60,9 +61,9 @@
             {% else %}
                 <h2> На данный момент времени ни один пост не добавлен... </h2>
                 <h3> Самое время опубликовать объявление в ленте ;) </h3>
-                <a href="{% url 'article_create' %}"><b>Добавить объявление</b></a>
 
     {% endif %}
+
 
     {% if page_obj.has_previous %}
         <a href="?{% url_replace page=1 %}">1</a>

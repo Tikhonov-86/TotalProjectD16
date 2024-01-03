@@ -4,11 +4,11 @@
 {% load censor_filter %}
 
 {% block title %}
-Добавление объявление
+Добавление объявления
 {% endblock title %}
 
 {% block content %}
-<h2> Добавление объявление </h2>
+<h2> Добавление объявления </h2>
 <hr>
 <form action="{% url 'article_create' %}" method="post">
     {% csrf_token %}

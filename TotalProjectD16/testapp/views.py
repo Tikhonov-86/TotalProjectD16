@@ -54,7 +54,7 @@ class ArticleDetail(PermissionRequiredMixin, DetailView):
     model = Article
     template_name = 'article_detail.html'
     context_object_name = 'article'
-    pk_url_kwarg = 'pk'
+    pk_url_kwarg = 'id'
 
 
 def create_news(request):
@@ -75,6 +75,7 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
     form_class = ArticleForm
     model = Article
     template_name = 'article_create.html'
+    success_url = reverse_lazy('article_list')
 
 
 class ArticleUpdate(PermissionRequiredMixin, UpdateView):
@@ -83,18 +84,14 @@ class ArticleUpdate(PermissionRequiredMixin, UpdateView):
     form_class = ArticleForm
     model = Article
     template_name = 'article_update.html'
-    success_url = reverse_lazy('article')
-
-    # def form_valid(self, form):
-    #     form.instance.author = self.request.user.author
-    #     return super().form_valid(form)
+    success_url = reverse_lazy('article_list')
 
 
 class ArticleDelete(PermissionRequiredMixin, DeleteView):
     permission_required = ('testapp.delete_article',)
     model = Article
     template_name = 'article_delete.html'
-    success_url = reverse_lazy('article')
+    success_url = reverse_lazy('article_list')
 
 
 @login_required

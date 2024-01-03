@@ -20,7 +20,7 @@ class ArticleForm(forms.ModelForm):
         title = self.cleaned_data["title"]
         if title[0].islower():
             raise ValidationError(
-                "Заголовок должно начинаться с заглавной буквы"
+                "Заголовок должен начинаться с заглавной буквы"
             )
         return title
 
@@ -28,6 +28,6 @@ class ArticleForm(forms.ModelForm):
         text = self.cleaned_data["text"]
         if text[0].islower():
             raise ValidationError(
-                "Содержание должно начинаться с заглавной буквы"
+                "Описание должно начинаться с заглавной буквы"
             )
         return text
