@@ -43,7 +43,7 @@ class IndexView(LoginRequiredMixin, ListView):
 
 class ArticleList(ListView):
     model = Article
-    # ordering = '-dateCreation'
+    ordering = '-dateCreation'
     template_name = 'article_list.html'
     context_object_name = 'articles'
     paginate_by = 10
