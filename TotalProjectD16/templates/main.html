@@ -7,9 +7,17 @@
 <hr>
 <form action="" method="get">
     {{ filterset.form }}
-    <input type="submit", value="Найти">
+    <p><b>Введите запрос для поиска:<br></b></p>
+    <input placeholder="Поиск" required><input type="submit" value="Найти"/>
 </form>
-<hr>
 
-<button> <a href="{% url 'account_logout' %}">Выйти</a> </button>
+<br><button><a href="/">Сбросить фильтр</a></button>
+<hr>
+<h4>Все отклики на выбранное объявление:</h4>
+{% if comments %}
+    {% for comment in comments %}
+        <p>{{ comment.text }}</p>
+    {% endfor %}
+{% endif %}
+<button><a href="{% url 'account_logout' %}">Выйти</a></button>
 {% endblock content %}

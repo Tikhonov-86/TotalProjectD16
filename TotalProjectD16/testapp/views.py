@@ -23,13 +23,21 @@ class ArticleFilter(FilterSet):
         self.filters['commentPost'].queryset = Article.objects.filter(author__user_id=kwargs['request'])
 
 
-class IndexView(LoginRequiredMixin, TemplateView):
+class IndexView(LoginRequiredMixin, ListView):
+    model = Comment
     template_name = 'main.html'
+    context_object_name = 'comments'
+
+    def get_queryset(self):
+        queryset = Comment.objects.filter(commentPost__author__user_id=self.request.user.id)
+        self.filterset = ArticleFilter(self.request.GET, queryset, request=self.request.user.id)
+        if self.request.GET:
+            return self.filterset.qs
+        return Comment.objects.none()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset = Comment.objects.filter(commentPost__author__user_id=self.request.user.id)
-        context['filterset'] = ArticleFilter(self.request.GET, queryset, request=self.request.user.id)
+        context['filterset'] = self.filterset
         return context
 
 
