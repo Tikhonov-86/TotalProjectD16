@@ -48,6 +48,6 @@
         <h6> Опубликуйте свою статью ;) </h6>
     {% endif %}
     {% if perms.testapp.add_article %}
-        <br><br><button href="{% url 'article_create' %}">Добавить объявление</button>
+        <br><br><small><button href="{% url 'article_create' %}">Добавить объявление</button></small>
     {% endif %}
 {% endblock content %}
