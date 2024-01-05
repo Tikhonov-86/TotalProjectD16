@@ -1,39 +1,36 @@
-<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
-{% extends 'flatpages/default.html' %}
+{% extends 'default.html' %}
+{% load static %}
 
-{% load custom_tags %}
-{% load censor_filter %}
-
-
-<!-- Название у нас будет posts -->
 {% block title %}
-Posts
+{{ article.title }}
 {% endblock title %}
 
-<!-- В контенте на странице мы выводим все новости -->
+{% load censor_filter %}
+{% load custom_tags %}
+
+
 {% block content %}
     <br>
     <h1>Все новости</h1>
     <h3>{% current_time '%d %b %Y' %}</h3>
-    <h3>Количество новостей: {{ Posts|length }}</h3>
+    <h3>Количество новостей: {{ Article|length }}</h3>
     <h3>{{ next_sale|default_if_none:"Чуть позже сообщим о новостях!" }}</h3>
         {% if not is_subscriber %}
             <p class="text-center"><a href="{% url 'subscriptions' %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
         {% endif %}
     <hr>
 
-    {% if perms.newsapp.add_news %}
-    <a href="{% url 'news_create' %}">Добавить новость</a>
+    {% if perms.testapp.add_news %}
+    <a href="{% url 'article_create' %}">Добавить новость</a>
     {% endif %}
     <hr>
-    {% if Posts %}
+    {% if Article %}
         <table>
             <tr>
                 <td>Заголовок</td>
-                <td>Содержание</td>
+                <td>описание</td>
                 <td>Автор</td>
                 <td>Категория</td>
-                <td>Рейтинг</td>
                 <td>Дата создания</td>
 
                 {% if perms.newsapp.change_news or perms.newsapp.delete_news %}
@@ -42,7 +39,7 @@ Posts
                 {% endif %}
             </tr>
 
-            {% for Post in category_news_list %}
+            {% for article in TYPE_Article %}
             <tr>
                 <td>{{ Post.title|censor }}</td>
                 <td>{{ Post.text|censor|truncatechars:20 }}</td>

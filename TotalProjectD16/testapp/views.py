@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.db.models import OuterRef, Exists
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
@@ -54,7 +54,7 @@ class ArticleDetail(PermissionRequiredMixin, DetailView):
     model = Article
     template_name = 'article_detail.html'
     context_object_name = 'article'
-    pk_url_kwarg = 'id'
+    pk_url_kwarg = 'pk'
 
 
 def create_news(request):
@@ -124,3 +124,20 @@ def subscriptions(request):
         {'categories': categories_with_subscriptions},
     )
 
+
+# class CategoryListView(ListView):
+#     model = Article
+#     template_name = 'category_list.html'
+#     context_object_name = 'TYPE_Article'
+#
+#
+#     def get_queryset(self):
+#         self.category = get_object_or_404(Article, id=self.kwargs['pk'])
+#         queryset = Article.objects.filter(category=self.category).order_by('-dateCreation')
+#         return queryset
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['is_subscriber'] = Subscription.objects.filter(user=self.request.user, category=self.category).exists()
+#         context['category'] = self.category
+#         return context
