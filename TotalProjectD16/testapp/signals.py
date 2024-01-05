@@ -2,7 +2,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_save
 from django.core.mail import send_mail
 
-from .models import UserResponse
+from .models import UserResponse, Article
 
 
 @receiver(pre_save, sender=UserResponse)
@@ -25,3 +25,7 @@ def my_handler(sender, instance, created, **kwargs):
         fail_silently=False
     )
 
+
+@receiver(post_save, sender=Article)
+def product_created(instance, **kwargs):
+    print('Создано объявление', instance)
