@@ -15,7 +15,7 @@
     <hr>
     {{ article.title }}
 
-    {% if articles %}
+    {% if article %}
         <table>
             <tr>
                 <td><b>Файл</b></td>
@@ -33,16 +33,16 @@
                 {% endif %}
 
                 <td>{{ article.title }}</td>
-                <td>{{ article.text|truncatechars:20 }}</td>
+                <td>{{ article.text }}</td>
                 <td>{{ article.dateCreation|date:'d M Y'}}</td>
                 <td>{{ article.get_category_display }}</td>
 
                 <td>
                     {% if Article.author == request.user.author %}
-                    <a href="{% url 'article_update' Article.id %}">Изменить</a>
+                    <a href="{% url 'article_update' article.id %}"><button><small>Изменить</small></button></a>
                     {% endif %}
                     {% if perms.testapp.delete_article %}
-                    <a href="{% url 'article_delete' Article.id %}">Удалить</a>
+                    <a href="{% url 'article_delete' article.id %}"><button><small>Удалить</small></button></a>
                     {% endif %}
                 </td>
 
