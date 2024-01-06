@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-{{ article.title }}
+{{ article.id.title }}
 {% endblock title %}
 
 {% load censor_filter %}
@@ -13,18 +13,23 @@
     <hr>
     <h4>{% current_time '%d %b %Y' %}</h4>
     <hr>
+    {{ article.title }}
 
     {% if articles %}
         <table>
             <tr>
-                <td>Заголовок</td>
-                <td>Превью статьи</td>
-                <td>Дата создания</td>
-                <td>Тип публикации</td>
+                <td><b>Файл</b></td>
+                <td><b>Заголовок</b></td>
+                <td><b>Превью статьи</b></td>
+                <td><b>Дата создания</b></td>
+                <td><b>Категория</b></td>
+                <td><b>Действия</b></td>
             </tr>
             <tr>
                 {% if article.upload %}
                 <td><img scr="{{ article.upload.url }}" width="200" height="200"></td>
+                {% else %}
+                    <td> - </td>
                 {% endif %}
 
                 <td>{{ article.title }}</td>
@@ -48,6 +53,6 @@
         <h6> Опубликуйте свою статью ;) </h6>
     {% endif %}
     {% if perms.testapp.add_article %}
-        <br><br><small><button href="{% url 'article_create' %}">Добавить объявление</button></small>
+        <br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small>
     {% endif %}
 {% endblock content %}

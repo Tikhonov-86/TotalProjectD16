@@ -41,12 +41,12 @@
 
             {% for article in TYPE_Article %}
             <tr>
-                <td>{{ Post.title|censor }}</td>
-                <td>{{ Post.text|censor|truncatechars:20 }}</td>
-                <td>{{ Post.author.authorUser }}</td>
-                <td><a href="{% url 'category_list' categoryType.id %}">{{ Post.categoryType }}</a></td>
-                <td>{{ Post.rating }}</td>
-                <td>{{ Post.dateCreation|date:'d M Y'}}</td>
+                <td>{{ article.title|censor }}</td>
+                <td>{{ article.text|censor|truncatechars:20 }}</td>
+                <td>{{ article.author }}</td>
+                <td><a href="{% url 'category_list' categoryType.id %}">{{ article.TYPE }}</a></td>
+                <td>{{ article.rating }}</td>
+                <td>{{ article.dateCreation|date:'d M Y'}}</td>
 
                 <td>
                     {% if Post.author == request.user.author %}

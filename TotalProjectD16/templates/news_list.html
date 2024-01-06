@@ -1,11 +1,9 @@
-<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
-{% extends 'flatpages/default.html' %}
+{% extends 'default.html' %}
 
 {% load custom_tags %}
 {% load censor_filter %}
 
 
-<!-- Название у нас будет posts -->
 {% block title %}
 Posts
 {% endblock title %}
