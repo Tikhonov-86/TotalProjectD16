@@ -52,8 +52,8 @@
         <h5> На данный момент времени ни один пост не добавлен... </h5>
         <h6> Опубликуйте свою статью ;) </h6>
     {% endif %}
-    <br><textarea placeholder="Можете ввести Ваш комментарий" required></textarea>
-                    <br><button><small><input type="submit" value="Готово"/></small></button>
+    <br><textarea placeholder="Можете ввести Ваш комментарий" required rows="1" cols="85" autofocus></textarea>
+                    <button><small><input type="submit" value="Готово"/></small></button>
     {% if perms.testapp.add_article %}
         <br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small>
     {% endif %}
