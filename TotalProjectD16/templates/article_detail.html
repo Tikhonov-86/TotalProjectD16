@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-{{ article.id.title }}
+{{ article.title }}
 {% endblock title %}
 
 {% load censor_filter %}
@@ -13,7 +13,7 @@
     <hr>
     <h4>{% current_time '%d %b %Y' %}</h4>
     <hr>
-    {{ article.title }}
+<!--    {{ article.title }}-->
 
     {% if article %}
         <table>
