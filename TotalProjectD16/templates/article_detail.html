@@ -13,7 +13,7 @@
     <hr>
     <h4>{% current_time '%d %b %Y' %}</h4>
     <hr>
-<!--    {{ article.title }}-->
+    <h5>Объявление: "{{ article.title }}"</h5>
 
     {% if article %}
         <table>
@@ -52,6 +52,8 @@
         <h5> На данный момент времени ни один пост не добавлен... </h5>
         <h6> Опубликуйте свою статью ;) </h6>
     {% endif %}
+    <br><textarea placeholder="Можете оставить Ваш комментарий" required></textarea>
+                    <br><button><small><input type="submit" value="Готово"/></small></button>
     {% if perms.testapp.add_article %}
         <br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small>
     {% endif %}
