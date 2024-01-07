@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django_filters import FilterSet
 
-from .forms import ArticleForm
+from .forms import ArticleForm, CommentForm
 from .models import Article, Subscription, Comment
 
 
@@ -49,7 +49,25 @@ class ArticleList(ListView):
     paginate_by = 10
 
 
-class ArticleDetail(PermissionRequiredMixin, DetailView):
+class CommentCreate(LoginRequiredMixin, CreateView):
+    model = Comment
+    template_name = 'article_detail.html'
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.commentUser = self.request.user
+        comment.commentPost_id = self.kwargs['pk']
+        comment.save()
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['article_id'] = self.kwargs['pk']
+        return context
+
+
+class ArticleDetail(PermissionRequiredMixin, CommentCreate, DetailView):
     permission_required = ('testapp.add_article',)
     model = Article
     template_name = 'article_detail.html'

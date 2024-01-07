@@ -52,8 +52,19 @@
         <h5> На данный момент времени ни один пост не добавлен... </h5>
         <h6> Опубликуйте свою статью ;) </h6>
     {% endif %}
-    <br><textarea placeholder="Можете ввести Ваш комментарий" required rows="1" cols="85" autofocus></textarea>
-                    <button><small><input type="submit" value="Готово"/></small></button>
+    <form action="{% url 'comment_create' article_id %}" method="post">
+        {% csrf_token %}
+<!--        {{ form }}-->
+        <br><textarea placeholder="Можете ввести Ваш комментарий" required rows="1" cols="85" autofocus></textarea>
+                    <button><small><input type="submit" value="Создать отклик"/></small></button>
+    </form>
+    {% if article.comment_set.all %}
+    <h5> Все отклики: </h5>
+        {% for comment in article.comment_set.all %}
+            <p>{{ comment.commentUser.username }}</p>
+            <p>{{ comment.text }}</p>
+        {% endfor %}
+    {% endif %}
     {% if perms.testapp.add_article %}
         <br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small>
     {% endif %}

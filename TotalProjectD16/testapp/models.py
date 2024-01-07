@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Article(models.Model):
@@ -65,6 +66,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.commentUser} : {self.text} [:20] + ...'
+
+    def get_absolut_url(self):
+        return reverse(viewname='article_detail', kwargs={'pk': self.commentPost_id})
 
     class Meta:
         verbose_name = 'комментарий'
