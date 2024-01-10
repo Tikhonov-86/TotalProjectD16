@@ -13,7 +13,6 @@ from .models import Article, Subscription, Comment
 
 
 class ArticleFilter(FilterSet):
-
     class Meta:
         model = Comment
         fields = ['commentPost']
@@ -53,6 +52,7 @@ class CommentCreate(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'article_detail.html'
     form_class = CommentForm
+    success_url = reverse_lazy('article_list')
 
     def form_valid(self, form):
         comment = form.save(commit=False)
@@ -67,7 +67,24 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         return context
 
 
-class ArticleDetail(PermissionRequiredMixin, CommentCreate, DetailView):
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+    permission_required = ('testapp.update_comment',)
+    raise_exception = True
+    form_class = CommentForm
+    model = Comment
+    template_name = 'comment_update.html'
+    success_url = reverse_lazy('article_list')
+
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
+    permission_required = ('testapp.delete_comment',)
+    raise_exception = True
+    model = Comment
+    template_name = 'comment_delete.html'
+    success_url = reverse_lazy('article_list')
+
+
+class ArticleDetail(DetailView, CommentCreate):
     permission_required = ('testapp.add_article',)
     model = Article
     template_name = 'article_detail.html'
@@ -75,20 +92,8 @@ class ArticleDetail(PermissionRequiredMixin, CommentCreate, DetailView):
     pk_url_kwarg = 'pk'
 
 
-def create_news(request):
-    form = ArticleForm()
-
-    if request.method == 'POST':
-        form = ArticleForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/article/')
-
-    return render(request, 'article_create.html', {'form': form})
-
-
-class ArticleCreate(PermissionRequiredMixin, CreateView):
-    permission_required = ('testapp.create_article',)
+class ArticleCreate(CreateView):
+    permission_required = ('testapp.add_article',)
     raise_exception = True
     form_class = ArticleForm
     model = Article
@@ -96,7 +101,7 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('article_list')
 
 
-class ArticleUpdate(PermissionRequiredMixin, UpdateView):
+class ArticleUpdate(LoginRequiredMixin, UpdateView):
     permission_required = ('testapp.update_article',)
     raise_exception = True
     form_class = ArticleForm

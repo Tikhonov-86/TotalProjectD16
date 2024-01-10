@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.urls import reverse
 
 
@@ -29,7 +31,7 @@ class Article(models.Model):
         return f'{self.dateCreation}||{self.title}:{self.text[:20]}'
 
     def get_absolut_url(self):
-        return f'/article/{self.id}'
+        return f'/article/{self.pk}'
 
     class Meta:
         verbose_name = 'объявление'
@@ -37,38 +39,19 @@ class Article(models.Model):
         ordering = ['-dateCreation']
 
 
-class UserResponse(models.Model):
-    author = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Автор')
-    title = models.CharField(max_length=64, verbose_name='Заголовок')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Объявление')
-    status = models.BooleanField(default=False, verbose_name='Статус')
-
-    class Meta:
-        verbose_name = 'пользователь'
-        verbose_name_plural = 'пользователи'
-        ordering = ['id']
-
-
 class Comment(models.Model):
-    commentPost = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Комментарии')
-    commentUser = models.ForeignKey(UserResponse, on_delete=models.CASCADE, verbose_name='Автор')
+    commentPost = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Комментарий')
+    commentUser = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     text = models.TextField(verbose_name='Описание')
     dateCreation = models.DateTimeField(auto_now_add=True, verbose_name='Время публикации')
-    rating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
-
-    def like(self):
-        self.rating += 1
-        self.save()
-
-    def dislike(self):
-        self.rating -= 1
-        self.save()
+    status = models.BooleanField(default=False, verbose_name='Статус')
 
     def __str__(self):
         return f'{self.commentUser} : {self.text} [:20] + ...'
 
     def get_absolut_url(self):
-        return reverse(viewname='article_detail', kwargs={'pk': self.commentPost_id})
+        return redirect('article/<int:pk>/')
+        # return reverse('article_detail', kwargs={'pk': self.commentPost_id})
 
     class Meta:
         verbose_name = 'комментарий'
@@ -78,7 +61,7 @@ class Comment(models.Model):
 
 class Subscription(models.Model):
     user = models.ForeignKey(
-        to=UserResponse,
+        to=User,
         on_delete=models.CASCADE,
         related_name='subscriptions',
     )

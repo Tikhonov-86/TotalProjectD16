@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 {% if article.upload %}
-                <td><img scr="{{ article.upload.url }}" width="200" height="200"></td>
+                    <td><img scr="{{ article.upload.url }}" width="150" height="150"></td>
                 {% else %}
                     <td> - </td>
                 {% endif %}
@@ -39,10 +39,10 @@
 
                 <td>
                     {% if Article.author == request.user.author %}
-                    <a href="{% url 'article_update' article.id %}"><button><small>Изменить</small></button></a>
+                        <a href="{% url 'article_update' article.id %}"><button><small>Изменить</small></button></a>
                     {% endif %}
                     {% if perms.testapp.delete_article %}
-                    <a href="{% url 'article_delete' article.id %}"><button><small>Удалить</small></button></a>
+                        <a href="{% url 'article_delete' article.id %}"><button><small>Удалить</small></button></a>
                     {% endif %}
                 </td>
 
@@ -52,20 +52,25 @@
         <h5> На данный момент времени ни один пост не добавлен... </h5>
         <h6> Опубликуйте свою статью ;) </h6>
     {% endif %}
+
     <form action="{% url 'comment_create' article_id %}" method="post">
         {% csrf_token %}
-<!--        {{ form }}-->
-        <br><textarea placeholder="Можете ввести Ваш комментарий" required rows="1" cols="85" autofocus></textarea>
-                    <button><small><input type="submit" value="Создать отклик"/></small></button>
+        <br>{{ form }}</br>
+<!--        <br><textarea placeholder="Можете ввести Ваш комментарий" required rows="1" cols="85" autofocus></textarea>-->
+        <button><small><input type="submit" value="Создать отклик"/></small></button>
     </form>
     {% if article.comment_set.all %}
-    <h5> Все отклики: </h5>
+    <h5>Все отклики:</h5>
         {% for comment in article.comment_set.all %}
             <p>{{ comment.commentUser.username }}</p>
             <p>{{ comment.text }}</p>
+            {% if Comment.author == request.user.author %}
+                <a href="{% url 'comment_update' comment.id %}"><button><small>Изменить</small></button></a>
+            {% endif %}
+            {% if perms.testapp.delete_comment %}
+                <a href="{% url 'comment_delete' comment.id %}"><button><small>Удалить</small></button></a>
+            {% endif %}
         {% endfor %}
     {% endif %}
-    {% if perms.testapp.add_article %}
-        <br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small>
-    {% endif %}
+<br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small><br><br>
 {% endblock content %}

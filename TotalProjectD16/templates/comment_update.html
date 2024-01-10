@@ -1,0 +1,18 @@
+{% extends 'default.html' %}
+{% load static %}
+
+{% load censor_filter %}
+
+{% block title %}
+Редактирование отклика "{{ comment.text }}"
+{% endblock title %}
+
+{% block content %}
+<h2> Редактирование отклика "{{ comment.text }}": </h2>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Подтвердить/Отменить</button>
+</form>
+{% endblock content %}
