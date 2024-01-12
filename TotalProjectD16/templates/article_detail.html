@@ -59,9 +59,11 @@
 <!--        <br><textarea placeholder="Можете ввести Ваш комментарий" required rows="1" cols="85" autofocus></textarea>-->
         <button><small><input type="submit" value="Создать отклик"/></small></button>
     </form>
+<br>
     {% if article.comment_set.all %}
     <h5>Все отклики:</h5>
         {% for comment in article.comment_set.all %}
+            <hr>
             <p>{{ comment.commentUser.username }}</p>
             <p>{{ comment.text }}</p>
             {% if Comment.author == request.user.author %}

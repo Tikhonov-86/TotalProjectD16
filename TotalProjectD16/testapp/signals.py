@@ -54,6 +54,6 @@ from .models import Article
 #         msg.send()
 #
 #
-# @receiver(post_save, sender=Article)
-# def product_created(instance, **kwargs):
-#     print('Создано объявление', instance)
+@receiver(post_save, sender=Article)
+def product_created(instance, **kwargs):
+    print('Объявление', instance)
