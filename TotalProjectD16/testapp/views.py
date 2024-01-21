@@ -22,7 +22,7 @@ class ArticleFilter(FilterSet):
 
     def __init__(self, *args, **kwargs):
         super(ArticleFilter, self).__init__(*args, **kwargs)
-        self.filters['commentPost'].queryset = Article.objects.filter(author__user_id=kwargs['request'])
+        self.filters['commentPost'].queryset = Article.objects.filter(author__id=kwargs['request'])
 
 
 class IndexView(LoginRequiredMixin, ListView):
@@ -33,7 +33,7 @@ class IndexView(LoginRequiredMixin, ListView):
     # success_url = reverse_lazy('comments')
 
     def get_queryset(self):
-        queryset = Comment.objects.filter(commentPost__author__user_id=self.request.user.id)
+        queryset = Comment.objects.filter(commentPost__author__id=self.request.user.id)
         self.filterset = ArticleFilter(self.request.GET, queryset, request=self.request.user.id)
         if self.request.GET:
             return self.filterset.qs
