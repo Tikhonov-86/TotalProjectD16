@@ -6,7 +6,7 @@
 <div>Здесь может содержаться персональная информация каждого пользователя</div>
 <hr>
 <form action="" method="get">
-    {{ filterset.form }}
+    {{ filterset.form.as_p }}
     <p><b>Введите запрос для поиска:<br></b></p>
     <input placeholder="Поиск" required><input type="submit" value="Найти"/>
 </form>
@@ -14,7 +14,7 @@
 <br><button><a href="/">Сбросить фильтр</a></button>
 <hr>
 <h4>Все отклики на выбранное объявление:</h4>
-{% if comments %}
+{% if comment %}
     {% for comment in comments %}
         <p>{{ comment.text }}</p>
     {% endfor %}

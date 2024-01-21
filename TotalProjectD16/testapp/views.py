@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.db.models import OuterRef, Exists
@@ -8,6 +10,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django_filters import FilterSet
 
+from .filters import CommentFilter
 from .forms import ArticleForm, CommentForm
 from .models import Article, Subscription, Comment
 
@@ -23,9 +26,11 @@ class ArticleFilter(FilterSet):
 
 
 class IndexView(LoginRequiredMixin, ListView):
+    form_class = CommentFilter
     model = Comment
     template_name = 'main.html'
     context_object_name = 'comments'
+    # success_url = reverse_lazy('comments')
 
     def get_queryset(self):
         queryset = Comment.objects.filter(commentPost__author__user_id=self.request.user.id)
