@@ -28,7 +28,7 @@ class Article(models.Model):
     )
 
     def __str__(self):
-        return f'{self.dateCreation}||{self.title}:{self.text[:20]}'
+        return f'{self.id} : {self.title}'
 
     def get_absolut_url(self):
         return f'/article/{self.pk}'

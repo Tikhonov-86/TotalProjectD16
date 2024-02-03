@@ -29,7 +29,7 @@ class IndexView(LoginRequiredMixin, ListView):
     form_class = CommentFilter
     model = Comment
     template_name = 'main.html'
-    context_object_name = 'comments'
+    context_object_name = 'profile'
     # success_url = reverse_lazy('comments')
 
     def get_queryset(self):

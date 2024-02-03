@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import TextInput, Textarea
 
 from .models import Article, Comment
 
@@ -31,6 +32,17 @@ class ArticleForm(forms.ModelForm):
                 "Описание должно начинаться с заглавной буквы"
             )
         return text
+
+    class Meta:
+        model = Article
+        fields = ['title', 'text', 'category', 'author']
+
+        widgets = {
+            'title': TextInput(attrs={'class': 'form-control', 'placeholder': 'Заголовок объявления'}),
+            'text': Textarea(attrs={'class': 'form-control', 'placeholder': 'Описание объявления'}),
+            'category_': TextInput(attrs={'class': 'form-control', 'placeholder': 'Категория'}),
+            'author_': TextInput(attrs={'class': 'form-control', 'placeholder': 'Автор'}),
+        }
 
 
 class CommentForm(forms.ModelForm):
