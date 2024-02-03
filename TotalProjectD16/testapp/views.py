@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django_filters import FilterSet
+from requests import Response
 
 from .filters import CommentFilter
 from .forms import ArticleForm, CommentForm
@@ -29,8 +30,8 @@ class IndexView(LoginRequiredMixin, ListView):
     form_class = CommentFilter
     model = Comment
     template_name = 'main.html'
-    context_object_name = 'profile'
-    # success_url = reverse_lazy('comments')
+    context_object_name = 'comments'
+    # success_url = reverse_lazy('profile')
 
     def get_queryset(self):
         queryset = Comment.objects.filter(commentPost__author__id=self.request.user.id)
@@ -120,6 +121,23 @@ class ArticleDelete(PermissionRequiredMixin, DeleteView):
     model = Article
     template_name = 'article_delete.html'
     success_url = reverse_lazy('article_list')
+
+
+# def usual_login_view(self, request, *args, **kwargs):
+#     username = request.data.get('username')
+#     password = request.data.get('password')
+#     user = authenticate(request, username=username, password=password)
+#     if user is not None:
+#         login(request, user)
+#         return Response(
+#             {"message": "Успешный вход в систему."},
+#             status=status.HTTP_200_0K
+#         )
+#     else:
+#         return Response(
+#         {"error": "Неверные учетные данные."},
+#         status=status.HTTP_401_UNAUTHORIZED
+#         )
 
 
 @login_required
