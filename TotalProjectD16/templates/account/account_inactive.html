@@ -1,4 +1,16 @@
 {% extends 'default.html' %}
 {% load static %}
 
-{% block content %}{% endblock content %}
+{% block head_title %}Активация аккаунта{% endblock %}
+
+{% block content %}
+    <h1 style="...">Введите код активации</h1>
+    <form action="{% url 'confirm_user' %}" method="post" style="...">
+        {% csrf_token %}
+        <label>
+            <input class="text" type="text" name="code" placeholder="Введите код активации">
+        </label>
+        <input type="submit" value="Подтвердить">
+    </form>
+
+{% endblock content %}

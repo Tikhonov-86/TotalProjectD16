@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 
 
-class User1(AbstractUser):
+class User(AbstractUser):
     code = models.CharField(max_length=15, blank=True, null=True)
 
 
