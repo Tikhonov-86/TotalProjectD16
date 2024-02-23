@@ -12,6 +12,7 @@
     <h3>Общее количество новостей: {{ articles|length }}</h3>
     <h3>{% current_time '%d %b %Y' %}</h3>
     <hr>
+    <br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small>
 <br>
     {% if perms.testapp.add_article %}
         <a href="{% url 'article_create' %}"><p><button><small>Добавить объявление</small></button></p></a>
@@ -61,9 +62,9 @@
             {% else %}
                 <h5> На данный момент времени ни один пост не добавлен... </h5>
                 <h6> Самое время опубликовать объявление в ленте ;) </h6>
-            {% if perms.testapp.add_article %}
+<!--            {% if perms.testapp.add_article %}-->
                 <br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small>
-            {% endif %}
+<!--            {% endif %}-->
     {% endif %}
 <!--{% if perms.testapp.add_article %}-->
 <!--    <br><br><small><button href="{% url 'article_create' %}">Добавить новое объявление</button></small>-->

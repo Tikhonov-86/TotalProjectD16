@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.db.models import OuterRef, Exists
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
@@ -13,7 +13,26 @@ from requests import Response
 
 from .filters import CommentFilter
 from .forms import ArticleForm, CommentForm
-from .models import Article, Subscription, Comment
+from .models import Article, Subscription, Comment, User
+
+
+class ConfirmUser(UpdateView):
+    model = User
+    context_object_name = 'confirm_user'
+
+    def post(self, request, *args, **kwargs):
+        if 'code' in request.POST:
+            user = User.objects.filter(code=request.POST['code'])
+            if user.exists():
+                user.update(is_active=True)
+                user.update(code=None)
+            else:
+                return render(self.request, 'users/invalid_code.html')
+        return redirect('account_login')
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile.html'
 
 
 class ArticleFilter(FilterSet):
