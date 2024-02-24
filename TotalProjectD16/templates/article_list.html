@@ -50,9 +50,9 @@
 
                 <td>
                     {% if article.author == request.user %}
-                        <a href="{% url 'article_update' article.id %}">Изменить</a>
+                        <a href="{% url 'article_update' article.id %}"><button><small>Изменить</small></button></a>
 
-                        <a href="{% url 'article_delete' article.id %}">Удалить</a>
+                        <a href="{% url 'article_delete' article.id %}"><button><small>Удалить</small></button></a>
                     {% endif %}
                 </td>
             </tr>

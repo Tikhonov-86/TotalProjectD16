@@ -135,8 +135,8 @@ class ArticleUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('article_list')
 
 
-class ArticleDelete(PermissionRequiredMixin, DeleteView):
-    permission_required = ('testapp.delete_article',)
+class ArticleDelete(LoginRequiredMixin, DeleteView):
+    # permission_required = ('testapp.delete_article',)
     model = Article
     template_name = 'article_delete.html'
     success_url = reverse_lazy('article_list')
