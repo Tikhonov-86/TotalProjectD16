@@ -56,7 +56,6 @@
     <form action="{% url 'comment_create' article_id %}" method="post">
         {% csrf_token %}
         <br>{{ form }}</br>
-<!--        <br><textarea placeholder="Можете ввести Ваш комментарий" required rows="1" cols="85" autofocus></textarea>-->
         <button><small><input type="submit" value="Создать отклик"/></small></button>
     </form>
 <br>

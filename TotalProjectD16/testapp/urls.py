@@ -16,5 +16,5 @@ urlpatterns = [
     path('<int:pk>/comment/update/', CommentUpdate.as_view(), name='comment_update'),
     path('<int:pk>/comment/delete/', CommentDelete.as_view(), name='comment_delete'),
     path('confirm/', ConfirmUser.as_view(), name='confirm_user'),
-    path('profile/', ProfileView.as_view(), name='profile'),
+    # path('profile/', ProfileView.as_view(), name='profile'),
 ]
