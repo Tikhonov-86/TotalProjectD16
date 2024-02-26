@@ -20,10 +20,8 @@
         <b>{{ comment.commentUser }}</b>
         <p>{{ comment.dateCreation }}</p>
         <p>{{ comment.text }}</p>
-        {% if Comment.author == request.user %}
+        {% if Comment.author == request.user.author %}
             <a href="{% url 'comment_update' comment.id %}"><button><small>Изменить</small></button></a>
-<!--    {% endif %}-->
-<!--    {% if perms.testapp.delete_comment %}-->
             <a href="{% url 'comment_delete' comment.id %}"><button><small>Удалить</small></button></a>
         {% endif %}
     <hr>
