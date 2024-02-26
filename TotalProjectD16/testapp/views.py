@@ -31,10 +31,6 @@ class ConfirmUser(UpdateView):
         return redirect('account_login')
 
 
-# class ProfileView(LoginRequiredMixin, TemplateView):
-#     template_name = 'profile.html'
-
-
 class ArticleFilter(FilterSet):
     class Meta:
         model = Comment
