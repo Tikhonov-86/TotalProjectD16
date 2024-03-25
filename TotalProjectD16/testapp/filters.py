@@ -28,3 +28,4 @@ class CommentFilter(FilterSet):
             attrs={'type': 'datetime-local'},
         )
     )
+
