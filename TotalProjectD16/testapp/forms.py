@@ -29,7 +29,7 @@ class CommonSingupForm(SignupForm):
 
 
 class ArticleForm(forms.ModelForm):
-    text = forms.CharField(min_length=15)
+    text = forms.Textarea(min_length=15)
 
     class Meta:
         model = Article

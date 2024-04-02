@@ -4,6 +4,16 @@ from django_filters import FilterSet, ModelChoiceFilter
 
 from .models import *
 
+# class ArticleFilter(FilterSet):
+#     class Meta:
+#         model = Article
+#         fields = {
+#             'author': ['icontains'],
+#             'category': ['icontains'],
+#             'dateCreation': ['icontains'],
+#         }
+#
+
 
 class CommentFilter(FilterSet):
     model = Comment
