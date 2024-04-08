@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
 
-    # 'ckeditor',
+    'ckeditor',
 
     'allauth',
     'allauth.account',
@@ -143,7 +143,7 @@ USE_TZ = True
 
 
 # STATIC_ROOT = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'TotalProjectD16/static'),
+STATIC_DIR = os.path.join(BASE_DIR, 'static'),
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = 'media/'
@@ -162,6 +162,7 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL = 'testapp.User'
 
+LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = "/article"
 LOGOUT_REDIRECT_URL = "/article"
 

@@ -1,5 +1,5 @@
-import random
 from string import hexdigits
+import random
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -29,7 +29,7 @@ class CommonSingupForm(SignupForm):
 
 
 class ArticleForm(forms.ModelForm):
-    text = forms.Textarea(min_length=15)
+    text = forms.Textarea()
 
     class Meta:
         model = Article

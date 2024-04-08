@@ -4,7 +4,7 @@
 {% block head_title %}Активация аккаунта{% endblock %}
 
 {% block content %}
-    <h1 style="...">Введите код активации</h1>
+    <h2 style="...">Введите код активации</h2>
     <form action="{% url 'confirm_user' %}" method="post" style="...">
         {% csrf_token %}
         <label>

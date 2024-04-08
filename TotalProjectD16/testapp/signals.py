@@ -2,8 +2,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_save
 from django.core.mail import send_mail, EmailMultiAlternatives
 
-from .models import Article
-
+from .models import Article, Comment
+from .tasks import comment_created_task, confirm_comment_task
 
 # @receiver(pre_save, sender=UserResponse)
 # def my_handler(sender, instance, created, **kwargs):
@@ -25,11 +25,15 @@ from .models import Article
 #         fail_silently=False
 #     )
 
+@receiver(post_save, sender=Comment)
+def comment_created(instance, created, **kwargs):
+    if created:
+        comment_created_task.delay(instance.pk)
 
-# @receiver(post_save, sender=Article)
-# def product_created(instance, created, **kwargs):
-#     if not created:
-#         return
+@receiver(post_save, sender=Comment)
+def confirm_comment(instance, created, **kwargs):
+    if not created:
+        confirm_comment_task.delay(instance.pk)
 #
 #     emails = Article.objects.filter(
 #         subscriptions__category=instance.TYPE
