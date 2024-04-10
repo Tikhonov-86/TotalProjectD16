@@ -6,4 +6,4 @@ class TestappConfig(AppConfig):
     name = 'testapp'
 
     def ready(self):
-        from . import signals
+        import testapp.signals
