@@ -69,7 +69,7 @@ class ArticleList(ListView):
     paginate_by = 10
 
 
-class CommentCreate(LoginRequiredMixin, CreateView):
+class CommentCreate(PermissionRequiredMixin, CreateView):
     model = Comment
     template_name = 'article_detail.html'
     form_class = CommentForm
