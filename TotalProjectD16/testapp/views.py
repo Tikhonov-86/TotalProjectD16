@@ -69,7 +69,7 @@ class ArticleList(ListView):
     paginate_by = 10
 
 
-class CommentCreate(PermissionRequiredMixin, CreateView):
+class CommentCreate(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'article_detail.html'
     form_class = CommentForm
@@ -88,7 +88,7 @@ class CommentCreate(PermissionRequiredMixin, CreateView):
         return context
 
 
-class CommentUpdate(LoginRequiredMixin, UpdateView):
+class CommentUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = ('testapp.update_comment',)
     raise_exception = True
     form_class = CommentForm
@@ -97,7 +97,7 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('article_list')
 
 
-class CommentDelete(LoginRequiredMixin, DeleteView):
+class CommentDelete(PermissionRequiredMixin, DeleteView):
     permission_required = ('testapp.delete_comment',)
     raise_exception = True
     model = Comment
