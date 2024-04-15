@@ -44,6 +44,12 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
+    STATUS = [
+        ('unknown', 'на рассмотрении'),
+        ('accepted', 'принято'),
+        ('rejected', 'отклонено'),
+    ]
+
     commentPost = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Комментарий')
     commentUser = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     text = models.TextField(verbose_name='Описание')

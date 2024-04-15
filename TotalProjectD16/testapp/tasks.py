@@ -1,8 +1,12 @@
+from datetime import timedelta
+
 from celery import shared_task
 from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils import timezone
 
 from TotalProjectD16 import settings
-from testapp.models import Comment
+from testapp.models import Comment, Article, User
 
 
 @shared_task
@@ -71,4 +75,29 @@ def confirm_comment_task(comment_id):
         )
         msg = EmailMultiAlternatives(subject, text_content, settings.DEFAULT_FROM_EMAIL, [email])
         msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+
+def weekly_notification():
+    today = timezone.now()
+    last_week = today - timedelta(days=7)
+    add = Article.objects.filter(dateCreation__gte=last_week)[:15]
+    emails = set(User.objects.all().values_list('email', flat=True))
+
+    subject = f'Новые публикации за последнюю неделю:)'
+
+    html_content = render_to_string(
+        'email/week_email.html',
+        {'add': add},
+    )
+
+    for email in emails:
+        msg = EmailMultiAlternatives(
+            subject=subject,
+            body='',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[email],
+        )
+
+        msg.attach_alternative(html_content, 'text/html')
         msg.send()
