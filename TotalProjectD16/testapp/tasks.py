@@ -82,7 +82,7 @@ def confirm_comment_task(comment_id):
 def weekly_notification():
     today = timezone.now()
     last_week = today - timedelta(days=7)
-    add = Article.objects.filter(dateCreation__gte=last_week)[:15]
+    add = Article.objects.filter(dateCreation__gte=last_week)
     emails = set(User.objects.all().values_list('email', flat=True))
 
     subject = f'Новые публикации за последнюю неделю:)'
