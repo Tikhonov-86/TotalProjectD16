@@ -78,6 +78,7 @@ def confirm_comment_task(comment_id):
         msg.send()
 
 
+@shared_task
 def weekly_notification():
     today = timezone.now()
     last_week = today - timedelta(days=7)
