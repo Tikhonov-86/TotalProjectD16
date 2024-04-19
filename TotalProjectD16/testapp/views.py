@@ -123,12 +123,17 @@ class ArticleCreate(CreateView):
 
 
 class ArticleUpdate(LoginRequiredMixin, UpdateView):
-    permission_required = ('testapp.update_article',)
+    # permission_required = ('testapp.update_article',)
     raise_exception = True
     form_class = ArticleForm
     model = Article
     template_name = 'article_update.html'
     success_url = reverse_lazy('article_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['author'] = Article.objects.get(pk=self.kwargs.get('pk')).author
+        return context
 
 
 class ArticleDelete(LoginRequiredMixin, DeleteView):
