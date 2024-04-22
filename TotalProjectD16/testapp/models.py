@@ -59,7 +59,7 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.commentUser} : {self.text} [:20] + ...'
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         return redirect('article/<int:pk>/')
         # return reverse('article_detail', kwargs={'pk': self.commentPost_id})
 

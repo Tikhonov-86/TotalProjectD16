@@ -73,7 +73,7 @@ class CommentCreate(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'article_detail.html'
     form_class = CommentForm
-    success_url = reverse_lazy('article_list')
+    success_url = reverse_lazy('article_detail')
 
     def form_valid(self, form):
         comment = form.save(commit=False)

@@ -89,8 +89,10 @@ def weekly_notification():
 
     html_content = render_to_string(
         'email/week_email.html',
-        {'add': add},
-        {'link': f'<a href="http://127.0.0.1/news/{pk}">'},
+        {
+            'add': add,
+            'link': f'<a href="http://127.0.0.1/news/{pk}/">'
+        },
     )
 
     for email in emails:

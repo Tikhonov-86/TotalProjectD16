@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Уведомления о новых публикациях</title>
-</head>
-<body>
-    <h2>Доброго времени суток! Можете ознакомиться <a href="{{ link }}">с новыми публикациями</a> за последнюю неделю </h2>
-</body>
-</html>
+{% extends 'default.html' %}
+{% load static %}
+
+{% block title %}
+Уведомления о новых публикациях
+{% endblock title %}
+
+{% block content %}
+    <h2>Доброго времени суток! Можете ознакомиться с новыми объявлениями за последнюю неделю </h2>
+    {% for post in add %}
+        <h2><a href="{% url 'article_detail' post.id %}">{{ post.title }}</a></h2>
+    {% endfor %}
+{% endblock content %}
