@@ -10,7 +10,7 @@
 {% block content %}
 <h2> Редактирование отклика "{{ comment.text }}": </h2>
 <hr>
-{% if user == author %}
+{% if user == commentUser %}
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}

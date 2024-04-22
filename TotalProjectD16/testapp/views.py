@@ -88,7 +88,7 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         return context
 
 
-class CommentUpdate(PermissionRequiredMixin, UpdateView):
+class CommentUpdate(LoginRequiredMixin, UpdateView):
     permission_required = ('testapp.update_comment',)
     raise_exception = True
     form_class = CommentForm
@@ -96,8 +96,13 @@ class CommentUpdate(PermissionRequiredMixin, UpdateView):
     template_name = 'comment_update.html'
     success_url = reverse_lazy('article_list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['commentUser'] = Comment.objects.get(pk=self.kwargs.get('pk')).commentUser
+        return context
 
-class CommentDelete(PermissionRequiredMixin, DeleteView):
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
     permission_required = ('testapp.delete_comment',)
     raise_exception = True
     model = Comment
