@@ -61,7 +61,6 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('article_detail', kwargs={'pk': self.commentPost_id})
-        # return redirect('article/<int:pk>/')
 
     class Meta:
         verbose_name = 'комментарий'
