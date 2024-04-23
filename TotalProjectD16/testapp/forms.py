@@ -12,9 +12,9 @@ from allauth.account.forms import SignupForm
 from .models import Article, Comment
 
 
-class CommonSingupForm(SignupForm):
+class CustomSignupForm(SignupForm):
     def save(self, request):
-        user = super(CommonSingupForm, self).save(request)
+        user = super(CustomSignupForm, self).save(request)
         user.is_active = False
         code = ''.join(random.sample(hexdigits, 5))
         user.code = code
@@ -23,7 +23,7 @@ class CommonSingupForm(SignupForm):
             subject=f'Код активации',
             message=f'Код активации аккаунта: {code}',
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.mail],
+            recipient_list=[user.email],
         )
         return user
 

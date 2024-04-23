@@ -34,6 +34,7 @@ def comment_created(instance, created, **kwargs):
 def confirm_comment(instance, created, **kwargs):
     if not created:
         confirm_comment_task.delay(instance.pk)
+
 #
 #     emails = Article.objects.filter(
 #         subscriptions__category=instance.TYPE
