@@ -6,7 +6,6 @@ from django.urls import reverse
 
 class User(AbstractUser):
     code = models.CharField(max_length=15, blank=True, null=True)
-    mail = models.EmailField(max_length=254)
 
 
 class Article(models.Model):
