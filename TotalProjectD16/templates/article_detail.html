@@ -61,16 +61,18 @@
 <br>
     {% if article.comment_set.all %}
     <h5>Все отклики:</h5>
-        {% for comment in article.comment_set.all %}
-            <hr>
+<!--        {% for comment in article.comment_set.all %}-->
+<!--            <hr>-->
+<!--            {% if comment.status == True or request.user == comment.author and comment.status == False %}-->
             <p>{{ comment.commentUser.username }}</p>
             <p>{{ comment.text }}</p>
-            {% if Comment.author == request.user.author %}
-                <a href="{% url 'comment_update' comment.id %}"><button><small>Изменить</small></button></a>
+                {% if Comment.author == request.user.author %}
+                    <a href="{% url 'comment_update' comment.id %}"><button><small>Изменить</small></button></a>
 
-                <a href="{% url 'comment_delete' comment.id %}"><button><small>Удалить</small></button></a>
-            {% endif %}
-        {% endfor %}
+                    <a href="{% url 'comment_delete' comment.id %}"><button><small>Удалить</small></button></a>
+                {% endif %}
+<!--            {% endif %}-->
+<!--        {% endfor %}-->
     {% endif %}
 <br><br><a href="{% url 'article_create' %}"><button><small>Добавить объявление</small></button></a><br><br>
 {% endblock content %}

@@ -6,6 +6,7 @@
 <div>Здесь может содержаться персональная информация каждого пользователя</div>
 
 <hr>
+
 <form action="" method="get">
     {{ filterset.form.as_p }}
     <input type="submit" value="Найти"/>
@@ -14,6 +15,8 @@
 <br><button><a href="/article/profile/">Сбросить фильтр</a></button>
 <hr>
 <h4>Все отклики на выбранное объявление:</h4>
+<!--{% for comment in article.comment_set.all %}-->
+<!--{% if comment.status == True or request.user == comment.author and comment.status == False %}-->
 {% if comments %}
     {% for comment in comments %}
         <b>{{ comment.commentUser }}</b>
@@ -26,4 +29,29 @@
     <hr>
     {% endfor %}
 {% endif %}
+<form method="post" action="{% url 'confirm_comment' comment.id %}">
+    {% csrf_token %}
+    <button type="submit">Принять</button>
+</form>
+<form method="post" action="{% url 'reject_comment' comment.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-light text-dark me-2">Отклонить</button>
+</form>
+            </td>
+            <td style="font-weight: bold;">
+                {% if comment.status == 'unknown' %}
+                    <p class="text-secondary">На рассмотрении</p>
+                {% elif comment.status == 'accepted' %}
+                    <p style="color: #00cc00; ">Принят</p>
+                {% else %}
+                    <p style="color: #cc0000; ">Отклонено</p>
+                {% endif %}
+            </td>
+        </tr>
+
+        </table>
+
+        <h3 class="fw-bold text-sm-center">Пока никто не отправлял отклик на ваши объявления</h3>
+<!--{% endif %}-->
+<!--{% endfor %}-->
 {% endblock content %}

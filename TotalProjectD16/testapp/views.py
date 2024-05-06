@@ -70,6 +70,7 @@ class ArticleList(ListView):
 
 
 class CommentCreate(LoginRequiredMixin, CreateView):
+    raise_exception = True
     model = Comment
     template_name = 'article_detail.html'
     form_class = CommentForm
@@ -162,6 +163,41 @@ class ArticleDelete(LoginRequiredMixin, DeleteView):
 #         {"error": "Неверные учетные данные."},
 #         status=status.HTTP_401_UNAUTHORIZED
 #         )
+
+# @login_required
+# @csrf_protect
+# def accept_rejected(request, **kwargs):
+#     if request.method == 'POST':
+#         comment_id = request.POST.get('comment_id')
+#         comment = Comment.objects.get(id=comment_id)
+#         action = request.POST.get('action')
+#
+#         if action == 'accepted':
+#             Comment.objects.filter(user=request.user, comment=comment.update(status=True))
+#         elif action == 'rejected':
+#             Comment.objects.filter(user=request.user, comment=comment.update(status=False))
+#
+#     return render(request, 'main.html')
+
+# принять отклик
+@login_required
+def confirm_comment(request, pk):
+    comment = get_object_or_404(Comment, id=pk)
+    comment.status = 'accepted'
+    comment.save()
+
+    return redirect('main')
+
+
+# отклонить отклик
+@login_required
+def reject_comment(request, pk):
+    comment = get_object_or_404(Comment, id=pk)
+    comment.status = 'rejected'
+    comment.save()
+
+    return redirect('main')
+
 
 
 @login_required
