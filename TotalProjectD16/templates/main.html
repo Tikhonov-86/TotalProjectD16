@@ -15,8 +15,6 @@
 <br><button><a href="/article/profile/">Сбросить фильтр</a></button>
 <hr>
 <h4>Все отклики на выбранное объявление:</h4>
-<!--{% for comment in article.comment_set.all %}-->
-<!--{% if comment.status == True or request.user == comment.author and comment.status == False %}-->
 {% if comments %}
     {% for comment in comments %}
         <b>{{ comment.commentUser }}</b>
@@ -27,17 +25,15 @@
             <a href="{% url 'comment_delete' comment.id %}"><button><small>Удалить</small></button></a>
         {% endif %}
     <hr>
-    {% endfor %}
-{% endif %}
-<form method="post" action="{% url 'confirm_comment' comment.id %}">
-    {% csrf_token %}
-    <button type="submit">Принять</button>
-</form>
-<form method="post" action="{% url 'reject_comment' comment.id %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-light text-dark me-2">Отклонить</button>
-</form>
-            </td>
+    <form method="post" action="{% url 'confirm_comment' comment.id %}">
+        {% csrf_token %}
+        <button type="submit">Принять</button>
+    </form>
+    <form method="post" action="{% url 'reject_comment' comment.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-light text-dark me-2">Отклонить</button>
+    </form>
+        <tr>
             <td style="font-weight: bold;">
                 {% if comment.status == 'unknown' %}
                     <p class="text-secondary">На рассмотрении</p>
@@ -48,10 +44,8 @@
                 {% endif %}
             </td>
         </tr>
-
-        </table>
-
-        <h3 class="fw-bold text-sm-center">Пока никто не отправлял отклик на ваши объявления</h3>
-<!--{% endif %}-->
-<!--{% endfor %}-->
+    {% endfor %}
+    {% else %}
+        <h4 class="fw-bold text-sm-center">Пока никто не отправлял отклик на ваши объявления</h4>
+{% endif %}
 {% endblock content %}

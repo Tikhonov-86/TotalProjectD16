@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
 
     'ckeditor',
+    'ckeditor_uploader',
 
     'allauth',
     'allauth.account',
@@ -147,6 +148,9 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = 'media/'
 MEDIA_URL = '/media/'
+
+CKEDITOR_BASEPATH = "/my_static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 
 # Default primary key field type

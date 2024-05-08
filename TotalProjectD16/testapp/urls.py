@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (
     ArticleList, ArticleCreate, ArticleDetail, ArticleUpdate, ArticleDelete,
-    IndexView, CommentCreate, CommentUpdate, CommentDelete, ConfirmUser, confirm_comment, reject_comment,
+    IndexView, CommentCreate, CommentUpdate, CommentDelete, ConfirmUser, accept_rejected,
 )
 
 urlpatterns = [
@@ -16,6 +16,6 @@ urlpatterns = [
     path('<int:pk>/comment/update/', CommentUpdate.as_view(), name='comment_update'),
     path('<int:pk>/comment/delete/', CommentDelete.as_view(), name='comment_delete'),
     path('confirm/', ConfirmUser.as_view(), name='confirm_user'),
-    path('int:pk>/comment/confirm/', confirm_comment, name='confirm_comment'),  # принять отклик
-    path('int:pk>/comment/reject/', reject_comment, name='reject_comment'),  # отклонить отклик
+    path('<int:pk>/comment/confirm/', accept_rejected, name='confirm_comment'),  # принять отклик
+    path('<int:pk>/comment/reject/', accept_rejected, name='reject_comment'),  # отклонить отклик
 ]
