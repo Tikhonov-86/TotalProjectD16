@@ -168,16 +168,17 @@ class ArticleDelete(LoginRequiredMixin, DeleteView):
 @csrf_protect
 def accept_rejected(request, **kwargs):
     if request.method == 'POST':
-        comment_id = request.POST.get('comment_id')
-        comment = Comment.objects.get(id=comment_id)
+        comment = Comment.objects.get(id=kwargs['pk'])
         action = request.POST.get('action')
 
         if action == 'accepted':
-            Comment.objects.filter(user=request.user, comment=comment.update(status=True))
+            comment.status = True
+            comment.save()
         elif action == 'rejected':
-            Comment.objects.filter(user=request.user, comment=comment.update(status=False))
+            comment.status = False
+            comment.save()
 
-    return render(request, 'main.html')
+    return redirect(request.META['HTTP_REFERER'])
 
 # # принять отклик
 # @login_required
