@@ -24,7 +24,6 @@
             <a href="{% url 'comment_update' comment.id %}"><button><small>Изменить</small></button></a>
             <a href="{% url 'comment_delete' comment.id %}"><button><small>Удалить</small></button></a>
         {% endif %}
-    <hr>
         {% if comment.status == False %}
             <form method="post" action="{% url 'confirm_comment' comment.id %}">
                 {% csrf_token %}
@@ -51,6 +50,7 @@
                 {% endif %}
             </td>
         </tr>
+<hr>
     {% endfor %}
     {% else %}
         <h4 class="fw-bold text-sm-center">Пока никто не отправлял отклик на ваши объявления</h4>
