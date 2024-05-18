@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 from django.urls import reverse
 
+from ckeditor.fields import RichTextField
+
 
 class User(AbstractUser):
     code = models.CharField(max_length=15, blank=True, null=True)
@@ -25,9 +27,8 @@ class Article(models.Model):
     text = models.TextField(verbose_name='Описание')
     category = models.CharField(max_length=16, choices=TYPE, default='tank', verbose_name='Категория')
     dateCreation = models.DateTimeField(auto_now_add=True, verbose_name='Время публикации')
-    upload = models.ImageField(
-        upload_to='uploads/', help_text='Загрузите файл', blank=True, verbose_name='Загрузка файла'
-    )
+    upload = models.TextField()
+    # upload_to='uploads/', help_text='Загрузите файл', blank=True, verbose_name='Загрузка файла'
 
     def __str__(self):
         return f'{self.id} : {self.title}'

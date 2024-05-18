@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.gis import forms
+from django import forms
 
 from testapp.models import Article, User
 
