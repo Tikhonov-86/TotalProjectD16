@@ -59,9 +59,9 @@
         <button><small><input type="submit" value="Создать отклик"/></small></button>
     </form>
 <br>
+<hr>
     <h5>Все отклики:</h5>
         {% for comment in article.comment_set.all %}
-<hr>
             <p>{{ comment.commentUser.username }}</p>
             <p>{{ comment.text }}</p>
                 {% if Comment.author == request.user.author %}
@@ -69,7 +69,7 @@
 
                     <a href="{% url 'comment_delete' comment.id %}"><button><small>Удалить</small></button></a>
                 {% endif %}
-        {% endfor %}
 <hr>
+        {% endfor %}
 <br><br><a href="{% url 'article_create' %}"><button><small>Добавить объявление</small></button></a><br><br>
 {% endblock content %}
