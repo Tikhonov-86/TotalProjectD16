@@ -154,6 +154,7 @@ MEDIA_URL = '/media/'
 
 CKEDITOR_BASEPATH = "/my_static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 
 CKEDITOR_CONFIGS = {
     'default': {
