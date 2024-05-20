@@ -43,7 +43,7 @@
                 {% endif %}
 
                 <td><a href="{% url 'article_detail' article.id %}">{{ article.title|censor }}</a></td>
-                <td><a href="{% url 'article_detail' article.id %}">{{ article.text|truncatechars:20 }}</a></td>
+                <td><a href="{% url 'article_detail' article.id %}">{{ article.text|safe }}</a></td>
                 <td>{{ article.dateCreation|date:'d M Y'}}</td>
                 <td>{{ article.get_category_display }}</td>
                 <td>{{ article.author }}</td>

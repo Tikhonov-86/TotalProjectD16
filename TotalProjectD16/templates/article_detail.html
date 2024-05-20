@@ -33,7 +33,7 @@
                 {% endif %}
 
                 <td>{{ article.title }}</td>
-                <td>{{ article.text }}</td>
+                <td>{{ article.text|safe }}</td>
                 <td>{{ article.dateCreation|date:'d M Y'}}</td>
                 <td>{{ article.get_category_display }}</td>
 
