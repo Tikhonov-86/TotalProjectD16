@@ -61,6 +61,7 @@ class ArticleForm(forms.ModelForm):
         fields = ['title', 'text', 'category', 'author']
 
         widgets = {
+
             'title': TextInput(attrs={'class': 'form-control', 'placeholder': 'Заголовок объявления'}),
             'text': Textarea(attrs={'class': 'form-control', 'placeholder': 'Описание объявления'}),
             'category_': TextInput(attrs={'class': 'form-control', 'placeholder': 'Категория'}),

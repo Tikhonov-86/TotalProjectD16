@@ -12,7 +12,7 @@ class ArticleAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
-class ArticleAdmin(forms.ModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
     form = ArticleAdminForm
 
 
