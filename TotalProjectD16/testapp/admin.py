@@ -1,13 +1,7 @@
 from django.contrib import admin
 from django import forms
-
 from testapp.models import Article, User
-
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-
-
-admin.site.register(Article)
-admin.site.register(User)
 
 
 class ArticleAdminForm(forms.ModelForm):
@@ -16,3 +10,11 @@ class ArticleAdminForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = '__all__'
+
+
+class ArticleAdmin(forms.ModelAdmin):
+    form = ArticleAdminForm
+
+
+admin.site.register(Article, ArticleAdmin)
+admin.site.register(User)
