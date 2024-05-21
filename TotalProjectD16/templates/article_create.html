@@ -13,7 +13,7 @@
 <form action="{% url 'article_create' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-
+    {{ form.media }}
     <button type="submit">Добавить объявление</button>
 </form>
 {% endblock content %}
