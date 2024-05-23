@@ -180,26 +180,6 @@ def accept_rejected(request, **kwargs):
 
     return redirect(request.META['HTTP_REFERER'])
 
-# # принять отклик
-# @login_required
-# def confirm_comment(request, pk):
-#     comment = get_object_or_404(Comment, id=pk)
-#     comment.status = 'accepted'
-#     comment.save()
-#
-#     return redirect('main')
-#
-#
-# # отклонить отклик
-# @login_required
-# def reject_comment(request, pk):
-#     comment = get_object_or_404(Comment, id=pk)
-#     comment.status = 'rejected'
-#     comment.save()
-#
-#     return redirect('main')
-
-
 
 @login_required
 @csrf_protect
