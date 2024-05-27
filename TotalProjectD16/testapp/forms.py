@@ -59,14 +59,13 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['upload', 'title', 'text', 'category', 'author']
+        fields = ['upload', 'title', 'text', 'category']
 
         widgets = {
             'upload': TextInput(attrs={'class': 'form-control', 'placeholder': 'Загрузите файл'}),
             'title': TextInput(attrs={'class': 'form-control', 'placeholder': 'Заголовок объявления'}),
             'text': Textarea(attrs={'class': 'form-control', 'placeholder': 'Описание объявления'}),
             'category_': TextInput(attrs={'class': 'form-control', 'placeholder': 'Категория'}),
-            'author_': TextInput(attrs={'class': 'form-control', 'placeholder': 'Автор'}),
         }
 
 

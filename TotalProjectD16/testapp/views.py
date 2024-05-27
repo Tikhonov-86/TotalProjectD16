@@ -118,13 +118,20 @@ class ArticleDetail(DetailView, CommentCreate):
     pk_url_kwarg = 'pk'
 
 
-class ArticleCreate(CreateView):
+class ArticleCreate(LoginRequiredMixin, CreateView):
     permission_required = ('testapp.add_article',)
     raise_exception = True
     form_class = ArticleForm
     model = Article
     template_name = 'article_create.html'
     success_url = reverse_lazy('article_list')
+
+    def form_valid(self, form):
+        new_article = form.save(commit=False)
+        if self.request.method == 'POST':
+            new_article.author = self.request.user
+        new_article.save()
+        return super().form_valid(form)
 
 
 class ArticleUpdate(LoginRequiredMixin, UpdateView):
