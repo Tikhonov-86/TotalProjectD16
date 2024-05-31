@@ -12,7 +12,7 @@ from testapp.models import Comment, Article, User
 @shared_task
 def comment_created_task(comment_id):
     comment = Comment.objects.get(pk=comment_id)
-    email = comment.commentPost.author.username.email
+    email = comment.commentPost.author.email
 
     subject = f'На Ваше объявление оставили отклик'
 
@@ -36,7 +36,7 @@ def comment_created_task(comment_id):
 @shared_task
 def confirm_comment_task(comment_id):
     comment = Comment.objects.get(pk=comment_id)
-    email = comment.commentPost.author.username.email
+    email = comment.commentPost.author.email
 
     if comment.status == 'accepted':
         subject = f'Ваш отклик приняли'
