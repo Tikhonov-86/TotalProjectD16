@@ -12,7 +12,7 @@ from testapp.models import Comment, Article, User
 @shared_task
 def comment_created_task(comment_id):
     comment = Comment.objects.get(pk=comment_id)
-    email = comment.commentPost.author.commentUser.email
+    email = comment.commentPost.author.username.email
 
     subject = f'На Ваше объявление оставили отклик'
 
@@ -36,7 +36,7 @@ def comment_created_task(comment_id):
 @shared_task
 def confirm_comment_task(comment_id):
     comment = Comment.objects.get(pk=comment_id)
-    email = comment.commentUser.email
+    email = comment.commentPost.author.username.email
 
     if comment.status == 'accepted':
         subject = f'Ваш отклик приняли'
@@ -45,14 +45,14 @@ def confirm_comment_task(comment_id):
             f'Объявление: {comment.commentPost}\n'
             f'Описание: {comment.text}\n\n'
             f'Ссылка на объявление: http://127.0.0.1:8000{comment.get_absolute_url()}'
-            f'Принят автором объявления: {comment.commentPost.author.commentUser}'
+            f'Принят автором объявления: {comment.commentPost.author.username}'
         )
         html_content = (
             f'Объявление: {comment.commentPost}<br>'
             f'Описание: {comment.text}<br><br>'
             f'<a href="http://127.0.0.1/{comment.get_absolute_url()}">'
             f'Ссылка на объявление</a>'
-            f'Принят автором объявления: {comment.commentPost.author.commentUser}'
+            f'Принят автором объявления: {comment.commentPost.author.username}'
         )
         msg = EmailMultiAlternatives(subject, text_content, settings.DEFAULT_FROM_EMAIL, [email])
         msg.attach_alternative(html_content, "text/html")
@@ -64,14 +64,14 @@ def confirm_comment_task(comment_id):
             f'Объявление: {comment.commentPost}\n'
             f'Описание: {comment.text}\n\n'
             f'Ссылка на объявление: http://127.0.0.1:8000{comment.get_absolute_url()}'
-            f'Отклонён автором объявления: {comment.add.author.commentUser}'
+            f'Отклонён автором объявления: {comment.commentPost.author.username}'
         )
         html_content = (
             f'Объявление: {comment.commentPost}<br>'
             f'Описание: {comment.text}<br><br>'
             f'<a href="http://127.0.0.1/{comment.get_absolute_url()}">'
             f'Ссылка на объявление</a>'
-            f'Отклонён автором объявления: {comment.commentPost.author.commentUser}'
+            f'Отклонён автором объявления: {comment.commentPost.author.username}'
         )
         msg = EmailMultiAlternatives(subject, text_content, settings.DEFAULT_FROM_EMAIL, [email])
         msg.attach_alternative(html_content, "text/html")
@@ -90,7 +90,7 @@ def weekly_notification():
     html_content = render_to_string(
         'email/week_email.html',
         {
-            'article': Article,
+            'add': add,
             'link': f'<a href="http://127.0.0.1/news/{pk}/">'
         },
     )
