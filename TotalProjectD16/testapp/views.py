@@ -66,7 +66,7 @@ class ArticleList(ListView):
     ordering = '-dateCreation'
     template_name = 'article_list.html'
     context_object_name = 'articles'
-    paginate_by = 10
+    paginate_by = 5
 
 
 class CommentCreate(LoginRequiredMixin, CreateView):

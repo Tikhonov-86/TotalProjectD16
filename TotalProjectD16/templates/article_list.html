@@ -12,13 +12,12 @@
     <h3>Общее количество новостей: {{ articles|length }}</h3>
     <h3>{% current_time '%d %b %Y' %}</h3>
     <hr>
-    <br><br><a href="{% url 'article_create' %}"><button><small>Добавить новое объявление</small></button></a>
+    <br><a href="{% url 'article_create' %}"><button><small>Добавить новое объявление</small></button></a>
 <br>
     {% if perms.testapp.add_article %}
         <a href="{% url 'article_create' %}"><p><button><small>Добавить объявление</small></button></p></a>
     {% endif %}
 <br>
-
     {% if articles %}
         <table>
             <tr>
