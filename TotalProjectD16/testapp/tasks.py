@@ -50,7 +50,7 @@ def confirm_comment_task(comment_id):
         html_content = (
             f'Объявление: {comment.commentPost}<br>'
             f'Описание: {comment.text}<br><br>'
-            f'<a href="http://127.0.0.1/{comment.get_absolute_url()}">'
+            f'<a href="http://127.0.0.1:8000/{comment.get_absolute_url()}">'
             f'Ссылка на объявление</a>'
             f'Принят автором объявления: {comment.commentPost.author.username}'
         )
@@ -69,7 +69,7 @@ def confirm_comment_task(comment_id):
         html_content = (
             f'Объявление: {comment.commentPost}<br>'
             f'Описание: {comment.text}<br><br>'
-            f'<a href="http://127.0.0.1/{comment.get_absolute_url()}">'
+            f'<a href="http://127.0.0.1:8000/{comment.get_absolute_url()}">'
             f'Ссылка на объявление</a>'
             f'Отклонён автором объявления: {comment.commentPost.author.username}'
         )
@@ -91,7 +91,7 @@ def weekly_notification():
         'email/week_email.html',
         {
             'add': add,
-            'link': f'<a href="http://127.0.0.1/news/{pk}/">'
+            'link': f'<a href="http://127.0.0.1:8000/news/{pk}/">'
         },
     )
 
