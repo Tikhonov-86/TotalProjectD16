@@ -24,7 +24,7 @@ def comment_created_task(comment_id):
     html_content = (
         f'Объявление: {comment.commentPost}<br>'
         f'Описание: {comment.text}<br><br>'
-        f'<a href="http://127.0.0.1/{comment.get_absolute_url()}">'
+        f'<a href="http://127.0.0.1:8000/{comment.get_absolute_url()}">'
         f'Ссылка на объявление</a>'
     )
 
